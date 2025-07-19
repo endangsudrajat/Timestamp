@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FotoStamp - Editor Foto dengan Timestamp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>FotoStamp</h1>
+            <div class="subtitle">Tambahkan timestamp dan lokasi ke foto Anda dengan mudah</div>
+        </header>
+        
+        <div class="editor-container">
+            <div class="upload-section">
+                <h2 class="section-title"><i class="fas fa-cog"></i> Pengaturan</h2>
+                
+                <div class="file-upload">
+                    <input type="file" id="imageUpload" accept="image/*">
+                    <label for="imageUpload" class="file-upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Unggah Foto Anda</span>
+                        <span class="small">Format: JPG, PNG, GIF (Maks. 5MB)</span>
+                    </label>
+                </div>
+                
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="timestamp">Timestamp</label>
+                        <input type="datetime-local" id="timestamp">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="location">Lokasi</label>
+                        <select id="province" onchange="loadCities()">
+                            <option value="">Pilih Provinsi</option>
+                        </select>
+                        <div style="height: 10px;"></div>
+                        <select id="city">
+                            <option value="">Pilih Kota/Kabupaten</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="additionalText">Teks Tambahan</label>
+                        <textarea id="additionalText" rows="2" placeholder="Contoh: Acara Keluarga, Liburan, dll."></textarea>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Pengaturan Teks</label>
+                        <div class="text-controls">
+                            <div class="control-group">
+                                <label for="textColor">Warna Teks</label>
+                                <div class="color-input">
+                                    <input type="color" id="textColor" value="#ffffff">
+                                    <span>Putih</span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="bgColor">Warna Latar</label>
+                                <div class="color-input">
+                                    <input type="color" id="bgColor" value="#000000">
+                                    <span>Hitam</span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="bgOpacity">Transparansi</label>
+                                <input type="range" id="bgOpacity" min="0" max="100" value="70">
+                            </div>
+                            <div class="control-group">
+                                <label for="textPosition">Posisi Teks</label>
+                                <select id="textPosition">
+                                    <option value="bottom-right">Bawah Kanan</option>
+                                    <option value="bottom-left">Bawah Kiri</option>
+                                    <option value="top-right">Atas Kanan</option>
+                                    <option value="top-left">Atas Kiri</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Rotasi Gambar</label>
+                        <div class="rotation-buttons">
+                            <button onclick="rotateImage(90)" title="Putar 90° Kanan"><i class="fas fa-redo"></i> 90°</button>
+                            <button onclick="rotateImage(-90)" title="Putar 90° Kiri"><i class="fas fa-undo"></i> 90°</button>
+                            <button onclick="rotateImage(180)" title="Putar 180°"><i class="fas fa-sync-alt"></i> 180°</button>
+                            <button onclick="flipImage()" title="Flip Horizontal"><i class="fas fa-exchange-alt"></i> Flip</button>
+                        </div>
+                    </div>
+                    
+                    <button id="downloadBtn" onclick="downloadImage()"><i class="fas fa-download"></i> Download Foto</button>
+                </div>
+            </div>
+            
+            <div class="preview-section">
+                <h2 class="section-title"><i class="fas fa-image"></i> Pratinjau</h2>
+                <div class="canvas-container">
+                    <canvas id="imagePreview"></canvas>
+                </div>
+                <div class="resolution-info" id="resolutionInfo"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
